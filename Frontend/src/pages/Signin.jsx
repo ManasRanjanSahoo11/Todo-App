@@ -1,10 +1,34 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-function Signin() {
+function Signin({ setIsAuthenticated }) {
 
-    const handleSubmit = (e) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        //1.send data to backend 
+        const response = await axios.post("http://localhost:8080/signin", {
+            email,
+            password
+        })
+
+        if (response) {
+
+            alert(response.msg)
+
+            //2.setIsAuthenticated to true.
+            setIsAuthenticated(true)
+
+            //3.redirect to home page
+            navigate('/home')
+        }
     }
 
     return (
@@ -18,11 +42,22 @@ function Signin() {
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit} >
                             <div>
                                 <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com.com" required="" />
+                                <input type="email"
+                                    name="email"
+                                    id="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com.com" required="" />
                             </div>
                             <div>
                                 <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                <input type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="••••••••"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                             </div>
                             <div className="flex items-start">
                                 <div className="flex items-center h-5">

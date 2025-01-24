@@ -1,7 +1,8 @@
 require('dotenv').config()
+
 const jwt = require('jsonwebtoken')
 
-export default function auth(req, res, next) {
+function auth(req, res, next) {
     try {
         const token = req.cookies.authorization;
 
@@ -17,3 +18,5 @@ export default function auth(req, res, next) {
         return res.status(403).send("Forbidden: unauthorized");
     }
 }
+
+module.exports = { auth }

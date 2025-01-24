@@ -4,21 +4,21 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
+var cors = require('cors')
 
 const { userModel, todoModel } = require('./models/db')
 const { auth } = require('./middleware/auth')
 
 const app = express()
+
+app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 
 //connect to DB
 async function connDB() {
     try {
-        await mongoose.connect(process.env.MONGO_URL, {
-            useNewUrlParser: true,  //Use the new URL parser
-            useUnifiedTopology: true  // Use the new Server Discover and Monitoring engine
-        })
+        await mongoose.connect(process.env.MONGO_URL)
     } catch (err) {
         console.log('Error while connecting to the MongoDB' + err);
         return
@@ -43,7 +43,7 @@ app.post("/v1/api/signup", async (req, res) => {
 
         bcrypt.hash(password, 10, async (err, hash) => {
             if (err) {
-                return res.send("Err! while hashing password", err)
+              return  res.status(500).send('Error while hashing password');
             }
 
             await userModel.create({
@@ -88,7 +88,7 @@ app.post("/v1/api/signin", async (req, res) => {
         return res.status().json({ "msg": "You r signin." })
     } catch (err) {
         console.log(err);
-        return res.status(501).send("Internal server err!")
+        return res.status(501).json({"msg" : "Internal server err!"})
     }
 })
 
@@ -176,4 +176,4 @@ app.get("/v1/api/get-todos", auth, async (req, res) => {
     }
 })
 
-app.listen(8000, () => console.log('server started'))
+app.listen(process.env.PORT, () => console.log('server started'))
