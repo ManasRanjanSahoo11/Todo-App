@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 var cors = require('cors')
 
 const { userModel, todoModel } = require('./models/db')
@@ -85,7 +86,7 @@ app.post("/v1/api/signin", async (req, res) => {
             secure: process.env.NODE_ENV === "production",
         })
 
-        return res.status().json({ "msg": "You r signin." })
+        return res.status(201).json({"success": true, "msg": "You r signin." })
     } catch (err) {
         console.log(err);
         return res.status(501).json({"msg" : "Internal server err!"})

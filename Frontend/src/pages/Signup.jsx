@@ -24,7 +24,7 @@ function Signup() {
                 password,
             });
 
-            if (response.data.success) {
+            if (response) {
                 alert(response.data.msg);
                 setIsAuthenticated(true);
                 navigate('/home');
