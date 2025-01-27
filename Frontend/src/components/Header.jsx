@@ -18,13 +18,15 @@ function Header() {
                 title,
                 description,
                 done
+            },{
+                withCredentials:true
             })
 
             if(response){
                 console.log(response);
                 alert("Todo created succeessful")
 
-                setOpen(true)
+                setOpen(false)
             }
         } catch (err) {
             console.log(err);

@@ -12,9 +12,14 @@ const { auth } = require('./middleware/auth')
 
 const app = express()
 
-app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
+// app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}));
 
 //connect to DB
 async function connDB() {
@@ -44,7 +49,7 @@ app.post("/v1/api/signup", async (req, res) => {
 
         bcrypt.hash(password, 10, async (err, hash) => {
             if (err) {
-              return  res.status(500).send('Error while hashing password');
+                return res.status(500).send('Error while hashing password');
             }
 
             await userModel.create({
@@ -80,16 +85,17 @@ app.post("/v1/api/signin", async (req, res) => {
         //create jwt token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
 
-        //set cookie
-        res.cookie("authorization", token, {
+        //set cookie 
+        return res.cookie("authorization", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-        })
+            secure: false, // Set true for production (HTTPS)
+        }).
+            status(201).
+            json({ "success": true, "msg": "You r signin." })
 
-        return res.status(201).json({"success": true, "msg": "You r signin." })
     } catch (err) {
         console.log(err);
-        return res.status(501).json({"msg" : "Internal server err!"})
+        return res.status(501).json({ "msg": "Internal server err!" })
     }
 })
 
@@ -103,6 +109,7 @@ app.post("/v1/api/logout", (req, res) => {
     }
 })
 
+
 app.post("/v1/api/create-todo", auth, async (req, res) => {
     try {
         const { title, description, done } = req.body;
@@ -113,7 +120,9 @@ app.post("/v1/api/create-todo", auth, async (req, res) => {
             done: done || false,
             userId: req.userId
         })
+
         res.status(201).json({ "msg": "Todo created succeessful.", todo })
+        
     } catch (err) {
         console.log(err);
         return res.status(500).send("Internal server err!")
@@ -161,15 +170,15 @@ app.get("/v1/api/get-todos", auth, async (req, res) => {
     try {
         const userId = req.userId;
 
-        const userTodo = await todoModel.find({ userId })
+        const userTodos = await todoModel.find({ userId })
 
-        if (!userTodo) {
-            return res.status(401).send('Todo not found.')
+        if (!userTodos) {
+            return res.status(401).send('Todos not found.')
         }
 
         res.status(200).json({
             "msg": "Todos retrieved successful.",
-            todos: userTodo
+            todos: userTodos
         })
     } catch (err) {
         console.log(err);

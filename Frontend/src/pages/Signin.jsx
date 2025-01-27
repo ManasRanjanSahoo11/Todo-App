@@ -18,6 +18,8 @@ function Signin({ setIsAuthenticated }) {
             const response = await axios.post("http://localhost:8080/v1/api/signin", {
                 email,
                 password
+            }, {
+                withCredentials:true
             });
 
             
