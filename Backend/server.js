@@ -89,6 +89,7 @@ app.post("/v1/api/signin", async (req, res) => {
         return res.cookie("authorization", token, {
             httpOnly: true,
             secure: false, // Set true for production (HTTPS)
+            sameSite: "strict",
         }).
             status(201).
             json({ "success": true, "msg": "You r signin." })
@@ -122,7 +123,7 @@ app.post("/v1/api/create-todo", auth, async (req, res) => {
         })
 
         res.status(201).json({ "msg": "Todo created succeessful.", todo })
-        
+
     } catch (err) {
         console.log(err);
         return res.status(500).send("Internal server err!")
@@ -151,12 +152,12 @@ app.put("/v1/api/edit-todo/:todoId", async (req, res) => {
 
 app.delete("/v1/api/delete-todo/:todoId", auth, async (req, res) => {
     try {
-        const todoId = req.params.todoId;
+        const { todoId } = req.params;
 
         const deleteTodo = await todoModel.findByIdAndDelete(todoId)
 
         if (!deleteTodo) {
-            return res.status(401).send('Todo not found.')
+            return res.status(404).send('Todo not found.')
         }
 
         res.status(201).json({ "msg": "Todo deleted successful." })

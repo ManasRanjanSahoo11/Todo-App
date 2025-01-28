@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-function Header() {
+function Header({fetchTodos}) {
 
     const [open, setOpen] = useState(false)
 
@@ -25,8 +25,9 @@ function Header() {
             if(response){
                 console.log(response);
                 alert("Todo created succeessful")
-
                 setOpen(false)
+                
+                fetchTodos(); // Refresh the todo list
             }
         } catch (err) {
             console.log(err);

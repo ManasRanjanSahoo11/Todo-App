@@ -1,6 +1,7 @@
 import React from 'react'
 
-function Card({ todo }) {
+function Card({ todo, onDelete }) {
+
     return (
         <div className='w-96 h-fit bg-gray-800 rounded-xl text-white px-4'>
             <h2 className='font-semibold leading-none tracking-tight text-4xl py-5 line-clamp-2'>{todo.title}</h2>
@@ -24,10 +25,10 @@ function Card({ todo }) {
             }
 
             <div className="flex justify-end space-x-4 pb-5">
-                <button className="px-4 py-1.5 bg-violet-500 text-white text-sm font-medium rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                {/* <button onClick={() => handleEditTodo(todo._id)} className="px-4 py-1.5 bg-violet-500 text-white text-sm font-medium rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
                     Edit
-                </button>
-                <button className="px-4 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                </button> */}
+                <button onClick={() => onDelete(todo._id)} className="px-4 py-1.5 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                     Delete
                 </button>
             </div>
