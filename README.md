@@ -34,8 +34,8 @@ A full-stack Todo List application built with the MERN stack (MongoDB, Express, 
 ### Setup
 1. Clone repository:
 ```bash
-git clone https://github.com/your-username/mern-todo-app.git
-cd mern-todo-app
+git clone https://github.com/ManasRanjanSahoo11/Todo-App.git
+cd Todo-app
 ```
 
 2. Install backend dependencies:
