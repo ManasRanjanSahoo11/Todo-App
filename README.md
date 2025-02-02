@@ -2,7 +2,7 @@
 
 A full-stack Todo List application built with the MERN stack (MongoDB, Express, React, Node.js). Manage tasks with CRUD operations and persistent storage.
 
-![Landing Page]("Pictures/Screenshots/Screenshot 2025-02-02 104845.png")
+![Screenshot 2025-02-02 104845](https://github.com/user-attachments/assets/e80894da-44a8-44a4-a848-4f6f34c07ad7)
 
 ## Features ✨
 - Sign-up And Sign-in 
@@ -53,7 +53,7 @@ npm install
 4. Create `.env` file in `/server`:
 ```env
 MONGO_URI=your_mongodb_connection_string
-PORT=5000
+PORT=5173
 ```
 
 ## Running the App 🚀
@@ -68,7 +68,7 @@ npm run dev
 npm start
 ```
 
-The app will open in your browser at `http://localhost:3000`
+The app will open in your browser at `http://localhost:5173`
 
 ## API Endpoints 🔗
 | Method  | Endpoint                | Description           |
