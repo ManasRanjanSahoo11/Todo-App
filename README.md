@@ -40,7 +40,7 @@ cd Todo-app
 
 2. Install backend dependencies:
 ```bash
-cd server
+cd Backend
 npm install
 ```
 
@@ -53,30 +53,30 @@ npm install
 4. Create `.env` file in `/server`:
 ```env
 MONGO_URI=your_mongodb_connection_string
-PORT=5173
+PORT= 
 ```
 
 ## Running the App 🚀
 
-1. Start backend server (from `/server` directory):
+1. Start backend server (from `/Frontend` directory):
 ```bash
 npm run dev
 ```
 
-2. Start frontend (from `/client` directory):
+2. Start frontend (from `/Backend` directory):
 ```bash
-npm start
+node server.js
 ```
 
 The app will open in your browser at `http://localhost:5173`
 
 ## API Endpoints 🔗
-| Method  | Endpoint                | Description           |
-|---------|-------------------------|-----------------------|
-| GET     | /v1/api/todos           | Get all todos         |
-| POST    | /v1/api/create-todo     | Create new todo       |
-| PUT     | /v1/api/todos/:id       | Update todo           |
-| DELETE  | /v1/api/todos/:id       | Delete todo           |
+| Method  | Endpoint                     | Description           |
+|---------|------------------------------|-----------------------|
+| GET     | /v1/api/get-todos            | Get all todos         |
+| POST    | /v1/api/create-todo          | Create new todo       |
+| PUT     | /v1/api/edit-todo/:todoId    | Update todo           |
+| DELETE  | /v1/api/delete-todo/:todoId  | Delete todo           |
 
 ## Project Structure 📂
 ```
@@ -100,4 +100,4 @@ MIT License - see [LICENSE](LICENSE) for details
 
 ---
 
-**Happy organizing!** ✨
+**Happy Coding! 100xManas** ✨
