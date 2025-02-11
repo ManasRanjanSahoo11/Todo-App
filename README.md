@@ -95,9 +95,6 @@ Todo-app/
 └── README.md
 ```
 
-## License 📄
-MIT License - see [LICENSE](LICENSE) for details
-
 ---
 
 **Happy Coding! 100xManas** ✨
